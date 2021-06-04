@@ -1,20 +1,20 @@
 {
     "left_bottom" : [44.70, 33.50],
     "surface_mm" : [100,50],
-    "line_mm" : [1,9],
+    "line_mm" : [1,8],
     "eps_mm" : [1,1],
     "offset_mm" : [4,4],
     "pause_off_ms" : 200,
     "pause_on_ms" : 50,
     "focus_mm" : {
-        "start" : 72,
-        "finish" : 105
+        "start" : 90,
+        "finish" : 123
     },
     "width_mm" : {
-        "values" : [0.05, 0.1, 0.2]
+        "values" : [0.1, 0.15, 0.2, 1]
     },
     "speed_mm_s" : {
-        "values" : [5, 10, 20, 40, 70, 100]
+        "values" : [10, 20, 40, 70, 100]
     },
     "output_path" : "laser_calibration.gcode"
 }

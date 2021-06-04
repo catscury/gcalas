@@ -7,12 +7,12 @@ def draw_line(pos, line_length, w, laser_d, speed):
     line_gcode = [];
     gcode_move = "G0 X{:4.4f} Y{:4.4f} Z{:4.4f} F{:4.4f}\n"
     count_lines = math.ceil(w/laser_d);
-    lines_step = (w-laser_d)/(count_lines-1)
+    lines_step = (w-laser_d)/max((count_lines-1),1)
     overlap = 1-lines_step/laser_d
 
     line_gcode.append(gcode_move.format(pos[0]+laser_d/2, pos[1], pos[2], speed))
     y = [pos[1]+line_length, pos[1]]
-    for line_num in range(0, count_lines):
+    for line_num in range(count_lines):
         line_gcode.append(gcode_move.format(
             *[pos[0]+laser_d/2+line_num*lines_step, y[line_num%2], pos[2], speed]))
         line_gcode.append(gcode_move.format(
