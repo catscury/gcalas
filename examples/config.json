@@ -1,14 +1,14 @@
 {
-    "left_top" : [44.70, 33.50, 70],
+    "left_bottom" : [44.70, 33.50],
     "surface_mm" : [100,50],
     "line_mm" : [1,9],
     "eps_mm" : [1,1],
     "offset_mm" : [4,4],
     "pause_off_ms" : 200,
-    "pause_on_ms" : 100,
+    "pause_on_ms" : 50,
     "focus_mm" : {
-        "start" : 0,
-        "finish" : 10
+        "start" : 77,
+        "finish" : 87
     },
     "width_mm" : {
         "start" : 0.1,

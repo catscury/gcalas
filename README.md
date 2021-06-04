@@ -1,5 +1,67 @@
 # gcalas
-gcode generator of laser calibration for photoresist
+> gcode generator of laser calibration for photoresist
+
+Для настройки параметров генерации используется файл config.json:
+
+```json
+{
+    "left_bottom" : [44.70, 33.50],
+    "surface_mm" : [100,50],
+    "line_mm" : [1,9],
+    "eps_mm" : [1,1],
+    "offset_mm" : [4,4],
+    "pause_off_ms" : 200,
+    "pause_on_ms" : 50,
+    "focus_mm" : {
+        "start" : 77,
+        "finish" : 87
+    },
+    "width_mm" : {
+        "start" : 0.1,
+        "finish" : 0.5
+    },
+    "speed_mm_s" : {
+        "start" : 10,
+        "finish" : 100
+    },
+    "output_path" : "laser_calibration.gcode"
+}
+
+```
+left_bottom - X,Y координата лазера в мм, в которой он светит в левый нижний край текстолита
+surface_mm - X,Y размеры текстолита
+line_mm - X,Y размер калибровочной линии
+eps_mm - X,Y расстояние между линиями
+offset_mm - X,Y уменьшение полезной обаласти текстолита (чтобы не вылезать за края)
+pause_off_ms - пауза после отключения лазера
+pause_on_ms - пауза после включения лазера
+focus_mm - поиск фокуса в диапазоне от start до finish в мм
+width_mm - поиск ширины линии в диапазоне от start до finish в мм
+speed_mm_s - поиск скорости в диапазоне от start до finish в мм/с
+output_path - путь для получившегося g-code
+
+Программа сама вычислит сколько всего линий можно нанести на текстолит, и найдет
+количество значений для тестирования, также сообщит значения тестируемых параметров:
+Num testing values per dimension:
+ [6, 6, 6]
+focus_mm  values:
+ ['77.00', '79.00', '81.00', '83.00', '85.00', '87.00']
+width_mm  values:
+ ['0.10', '0.18', '0.26', '0.34', '0.42', '0.50']
+speed_mm_s  values:
+ ['10.00', '28.00', '46.00', '64.00', '82.00', '100.00']
+
+ Линии рисуются последовательно, каждая линия со своим набором параметров.
+ Сначала перебираем по скоростям, затем по ширине линии, затем по фокусному расстоянию.
+ 
+
+## Usage
+    python3 gcalas.py -c examples/config.json
+
+
+## Install
+git clone --depth 1 https://github.com/AfkMan/gcalas.git
+cd gcalas
 
 Производство печатных плат, методом засветки фоторезиста, лазером
 размещенным на 3d принтере, требует знания следующих параметров:
