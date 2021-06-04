@@ -41,7 +41,7 @@ if __name__ == '__main__':
         count_reserved = 0
 
     count_grid_values = num_series*values_in_series
-    count_values = math.floor(np.power(count_grid_values-count_reserved,
+    count_values = math.floor(np.power(count_grid_values/count_reserved,
                                              1/count_unfilled))
     count_grid = [a.get("count", count_values) for a in count_grid_params]
 

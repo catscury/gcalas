@@ -8,7 +8,8 @@
     "pause_on_ms" : 50,
     "focus_mm" : {
         "start" : 77,
-        "finish" : 87
+        "finish" : 91,
+        "count": 8
     },
     "width_mm" : {
         "start" : 0.1,
