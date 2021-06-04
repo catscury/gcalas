@@ -62,7 +62,7 @@ speed_mm_s  values:
 
 
 ## Install
-    git clone --depth 1 https://github.com/AfkMan/gcalas.git
+    git clone --depth 1 https://github.com/catscury/gcalas.git
     cd gcalas
 
 ## Описание генератора
