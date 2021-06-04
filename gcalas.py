@@ -35,19 +35,23 @@ if __name__ == '__main__':
                   "width_mm",
                   "speed_mm_s"]
     count_grid_params = [config[test] for test in tests_name]
-    count_unfilled = np.sum([0 if "count" in a else 1 for a in count_grid_params])
-    count_reserved = np.prod([a.get("count", 1) for a in count_grid_params])
-    if count_unfilled == len(count_grid_params):
-        count_reserved = 0
+
+    count_unfilled = np.sum([0 if "count" in a or "values" in a else 1
+                             for a in count_grid_params])
+    count_reserved = np.prod([a.get("count", len(a.get("values", [1])))
+                              for a in count_grid_params])
 
     count_grid_values = num_series*values_in_series
+
     count_values = math.floor(np.power(count_grid_values/count_reserved,
                                              1/count_unfilled))
-    count_grid = [a.get("count", count_values) for a in count_grid_params]
+    count_grid = [a.get("count",len(a.get("values", range(count_values))))
+                  for a in count_grid_params]
 
     print("Num testing values per dimension:\n", count_grid)
 
-    grid_values = [[a["start"]+i*(a["finish"]-a["start"])/(b-1)
+    grid_values = [a["values"] if "values" in a else
+                   [a.get("values",a["start"]+i*(a["finish"]-a["start"])/(b-1))
                     for i in range(b)]
                    for a, b in zip(count_grid_params, count_grid)]
     for axle, name in zip(grid_values, tests_name):
