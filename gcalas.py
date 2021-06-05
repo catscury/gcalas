@@ -10,7 +10,7 @@ def draw_line(pos, line_length, w, laser_d, speed):
     lines_step = (w-laser_d)/max((count_lines-1),1)
     overlap = 1-lines_step/laser_d
 
-    line_gcode.append(gcode_move.format(pos[0]+laser_d/2, pos[1], pos[2], speed))
+    line_gcode.append(gcode_move.format(pos[0]+laser_d/2, pos[1], pos[2], 1800))
     y = [pos[1]+line_length, pos[1]]
     for line_num in range(count_lines):
         line_gcode.append(gcode_move.format(
@@ -44,7 +44,7 @@ if __name__ == '__main__':
     count_grid_values = num_series*values_in_series
 
     count_values = math.floor(np.power(count_grid_values/count_reserved,
-                                             1/count_unfilled))
+                                             1/max(1, count_unfilled)))
     count_grid = [a.get("count",len(a.get("values", range(count_values))))
                   for a in count_grid_params]
 
@@ -77,7 +77,7 @@ if __name__ == '__main__':
     result_file = open(config["output_path"], "w")
     #settings
     pre_steps = "G28\nG21\nG0 X{:4.4f} Y{:4.4f} Z{:4.4f}\nM400\nG92 X0 Y0\nG90\n"
-    result_file.write(pre_steps.format(*[config["left_bottom"][0], config["left_bottom"][1], count_grid_params[0]["start"]]))
+    result_file.write(pre_steps.format(*[config["left_bottom"][0], config["left_bottom"][1], grid_values[0][0]]))
     #draw lines
     disable_laser = "M107 \nG4 P{:4.4f}\n"
     enable_laser = "M106 S255.0\nG4 P{:4.4f}\n"
